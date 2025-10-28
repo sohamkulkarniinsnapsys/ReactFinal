@@ -10,6 +10,11 @@ const conf = {
   appwriteBucketId:
     import.meta.env?.VITE_APPWRITE_BUCKET_ID || process.env.APPWRITE_BUCKET_ID,
 };
+console.log("🧩 conf debug", {
+  VITE_APPWRITE_ENDPOINT: import.meta.env.VITE_APPWRITE_ENDPOINT,
+  processEnv: process.env.APPWRITE_ENDPOINT,
+});
+
 
 // Optional: log missing vars (only in dev)
 if (typeof window !== "undefined") {
