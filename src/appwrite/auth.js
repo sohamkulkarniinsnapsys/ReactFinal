@@ -14,10 +14,15 @@ export class AuthService {
   account;
 
   constructor() {
+    console.log("🔍 conf values", {
+  endpoint: conf.getAppwriteUrl(),
+  project: conf.getProjectId(),
+});
+
     this.client
       .setEndpoint(conf.getAppwriteUrl())
       .setProject(conf.getProjectId());
-
+      
 
     this.account = new Account(this.client);
   }
