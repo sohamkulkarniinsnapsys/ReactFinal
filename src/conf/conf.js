@@ -1,15 +1,22 @@
 const conf = {
-  appwriteUrl: import.meta.env.VITE_APPWRITE_ENDPOINT, // was VITE_APPWRITE_URL
-  appwriteProjectId: import.meta.env.VITE_APPWRITE_PROJECT_ID,
-  appwriteDatabaseId: import.meta.env.VITE_APPWRITE_DATABASE_ID,
-  appwriteCollectionId: import.meta.env.VITE_APPWRITE_COLLECTION_ID,
-  appwriteBucketId: import.meta.env.VITE_APPWRITE_BUCKET_ID,
+  appwriteUrl:
+    import.meta.env?.VITE_APPWRITE_ENDPOINT || process.env.APPWRITE_ENDPOINT,
+  appwriteProjectId:
+    import.meta.env?.VITE_APPWRITE_PROJECT_ID || process.env.APPWRITE_PROJECT_ID,
+  appwriteDatabaseId:
+    import.meta.env?.VITE_APPWRITE_DATABASE_ID || process.env.APPWRITE_DATABASE_ID,
+  appwriteCollectionId:
+    import.meta.env?.VITE_APPWRITE_COLLECTION_ID || process.env.APPWRITE_COLLECTION_ID,
+  appwriteBucketId:
+    import.meta.env?.VITE_APPWRITE_BUCKET_ID || process.env.APPWRITE_BUCKET_ID,
 };
 
-// Runtime safety check
-for (const [key, value] of Object.entries(conf)) {
-  if (!value) {
-    console.warn(`Warning: Missing environment variable for ${key}`);
+// Optional: log missing vars (only in dev)
+if (typeof window !== "undefined") {
+  for (const [key, value] of Object.entries(conf)) {
+    if (!value) {
+      console.warn(`⚠️ Missing environment variable: ${key}`);
+    }
   }
 }
 
