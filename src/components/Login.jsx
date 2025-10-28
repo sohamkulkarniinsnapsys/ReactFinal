@@ -15,11 +15,17 @@ function Login() {
     const login = async (data) => {
         setError("");
         try {
-            // Login with Appwrite
-            const session = await authService.login(data);
+           
+            const response = await fetch('/api/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
+            });
+            const result = await response.json();
 
-            // Get current user
-            const userData = await authService.getCurrentUser();
+            if (!response.ok) throw new Error(result.error || 'Login failed');
+
+            const userData = result.user;
             if (userData) {
                 dispatch(authLogin(userData));
                 console.log("[Login.jsx] Dispatched login to Redux");
